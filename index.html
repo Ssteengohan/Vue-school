@@ -11,19 +11,22 @@
     <div id="shopping-list">
       <h1>{{ header || 'Welcome'}}</h1>
       <div class="add-item-form">
-          <input 
-            @keyup.enter="items.push({id:items.length + 1, label: newItem})"
-            type="text" v-model="newItem" placeholder="Add an item">
-          <label>
-              <input type="checkbox" v-model="newItemHighPriority">
-              High Priority
-              
-            </label>
-            <button 
-             @Click="items.push({id:items.length + 1, label: newItem})"
-             class="btn btn-primary">
-             Save Item
-            </button>
+        <input
+          @keyup.enter="saveItem"
+          type="text"
+          v-model="newItem"
+          placeholder="Add an item"
+        />
+        <label>
+          <input type="checkbox" v-model="newItemHighPriority" />
+          High Priority
+        </label>
+        <button
+          @Click="saveItem"
+          class="btn btn-primary"
+        >
+          Save Item
+        </button>
       </div>
 
       <ul>
@@ -37,11 +40,8 @@
         data() {
           return {
             header: "Shopping List App",
-
             newItem: "",
-
             newItemHighPriority: false,
-
             items: [
               { id: 1, label: "10 party hats" },
               { id: 2, label: "2 board games" },
@@ -49,6 +49,12 @@
             ],
           };
         },
+        methods:{
+            saveItem(){
+                this.items.push({id: this.items.length + 1, label: this.newItem})
+                this.newItem = ''
+            }
+        }
       }).mount("#shopping-list");
     </script>
   </body>
